@@ -5,6 +5,9 @@ import colors from 'colors';
 
 config();
 
+// Route files
+import teams from './routes/teams';
+
 const app = express();
 
 app.use(json());
@@ -13,11 +16,8 @@ if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
 
-app.get('/', (req, res) =>
-  res.status(200).send({
-    message: 'Server is up'
-  })
-);
+// Mount routers
+app.use('/api/v1/teams', teams);
 
 const PORT = process.env.PORT || 3000;
 
