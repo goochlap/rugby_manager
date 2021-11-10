@@ -1,9 +1,17 @@
-const express = require('express');
-const dotenv = require('dotenv');
+import express, { json } from 'express';
+import { config } from 'dotenv';
 
-dotenv.config();
+config();
 
 const app = express();
+
+app.use(json());
+
+app.get('*', (req, res) =>
+  res.status(200).send({
+    message: 'Server is up'
+  })
+);
 
 const PORT = process.env.PORT || 3000;
 
