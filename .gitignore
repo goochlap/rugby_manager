@@ -2,3 +2,4 @@
 .nvm
 node_modules/
 .env
+mongo

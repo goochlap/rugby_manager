@@ -2,11 +2,15 @@ import express, { json } from 'express';
 import { config } from 'dotenv';
 import morgan from 'morgan';
 import colors from 'colors';
-
-config();
+import connectDB from './utils/db';
 
 // Route files
 import teams from './routes/teams';
+
+config();
+
+// Connect to the DB
+connectDB();
 
 const app = express();
 
