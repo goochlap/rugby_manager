@@ -6,7 +6,7 @@ const connectDB = async () => {
     dbName: process.env.MONGODB_DB
   });
 
-  console.log(`MongoDB connected: ${connect.connection.host}`);
+  console.log(`MongoDB connected: ${connect.connection.name}`.cyan.bold);
 };
 
 export default connectDB;
