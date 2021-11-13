@@ -2,9 +2,12 @@ version: '3'
 
 services:
   api:
-    container_name: rugby-manager-ctn
+    image: rugby-manager-api
     build: .
     env_file: .env
+    environment:
+      - MONGODB_DB=rugby-manager-api
+      - MONGODB_URI=mongodb://admin:password@localhost:27017/
     ports:
       - 3000:3000
     links:
@@ -13,7 +16,9 @@ services:
   mongodb:
     image: mongo
     ports:
-      - 27017:27017 # HOST/CONTAINER
+      - 27017:27017
+    expose:
+      - 27017-27017
     environment:
       - MONGO_INITDB_ROOT_USERNAME=${MONGODB_USERNAME}
       - MONGO_INITDB_ROOT_PASSWORD=${MONGODB_PASSWORD}

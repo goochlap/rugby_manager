@@ -1,12 +1,12 @@
 FROM node:16.13.0
 
-WORKDIR /usr/src/app
+RUN mkdir -p /home/app
 
-COPY package*.json ./
+COPY . /home/app
+
+WORKDIR /home/app
 
 RUN npm install
-
-COPY . .
 
 EXPOSE 3000
 
