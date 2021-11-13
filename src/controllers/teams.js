@@ -5,18 +5,35 @@ import { Team } from '../models/Team';
 // @access    Public
 export const getTeams = async (req, res, next) => {
   try {
-    const Teams = await Team.find();
+    const teams = await Team.find();
 
-    res.status(200).json({ success: true, data: Teams });
+    res.status(200).json({ success: true, data: teams });
   } catch (err) {
     throw err;
   }
 };
 
+// @desc      Get a single team
+// @route     GET /api/v1/teams/:id
+// @access    Public
+export async function getTeam(req, res, next) {
+  try {
+    const team = await Team.findById(req.params.id);
+
+    if (!team) {
+      return res.status(404).json({ success: false });
+    }
+
+    res.status(200).json({ success: true, data: team });
+  } catch (err) {
+    res.status(400).json({ success: false });
+  }
+}
+
 // @desc      Create new team
 // @route     POST /api/v1/teams
 // @access    Private
-export async function createteam(req, res, next) {
+export async function createTeam(req, res, next) {
   try {
     const team = await Team.create(req.body);
 
