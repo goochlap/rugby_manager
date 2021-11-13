@@ -1,8 +1,16 @@
 import { Router } from 'express';
-import { getTeams, createteam } from '../controllers/teams';
+import {
+  getTeams,
+  createTeam,
+  getTeam,
+  updateTeam,
+  deleteTeam
+} from '../controllers/teams';
 
 const router = Router();
 
-router.route('/').get(getTeams).post(createteam);
+router.route('/').get(getTeams).post(createTeam);
+
+router.route('/:id').get(getTeam).put(updateTeam).delete(deleteTeam);
 
 export default router;
