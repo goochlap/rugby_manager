@@ -1,3 +1,4 @@
+import errorResponse from '../utils/errorResponse';
 import { Team } from '../models/Team';
 
 // @desc      Get teams
@@ -9,8 +10,7 @@ export const getTeams = async (req, res, next) => {
 
     res.status(200).json({ success: true, data: teams });
   } catch (err) {
-    console.log(err);
-    res.status(400).json({ success: false });
+    next(err);
   }
 };
 
@@ -22,13 +22,14 @@ export async function getTeam(req, res, next) {
     const team = await Team.findById(req.params.id);
 
     if (!team) {
-      return res.status(404).json({ success: false });
+      return next(
+        new errorResponse(`Team with id: ${req.params.id} not found`, 404)
+      );
     }
 
     res.status(200).json({ success: true, data: team });
   } catch (err) {
-    console.log(err);
-    res.status(400).json({ success: false });
+    next(err);
   }
 }
 
@@ -41,8 +42,7 @@ export async function createTeam(req, res, next) {
 
     res.status(201).json({ success: true, data: team });
   } catch (err) {
-    console.log(err);
-    return res.status(400).json({ success: false });
+    next(err);
   }
 }
 
@@ -57,13 +57,14 @@ export async function updateTeam(req, res, next) {
     });
 
     if (!team) {
-      return res.status(404).json({ success: false });
+      return next(
+        new errorResponse(`Team with id: ${req.params.id} not found`, 404)
+      );
     }
 
     res.status(200).json({ success: true, data: team });
   } catch (err) {
-    console.log(err);
-    return res.status(400).json({ success: false });
+    next(err);
   }
 }
 
@@ -75,12 +76,13 @@ export async function deleteTeam(req, res, next) {
     const team = await Team.findByIdAndDelete(req.params.id);
 
     if (!team) {
-      return res.status(404).json({ success: false });
+      return next(
+        new errorResponse(`Team with id: ${req.params.id} not found`, 404)
+      );
     }
 
     res.status(204);
   } catch (err) {
-    console.log(err);
-    return res.status(400).json({ success: false });
+    next(err);
   }
 }
