@@ -3,6 +3,7 @@ import { config } from 'dotenv';
 import morgan from 'morgan';
 import colors from 'colors';
 import connectDB from './utils/db';
+import errorHandler from './middleware/error';
 
 // Route files
 import teams from './routes/teams';
@@ -24,6 +25,8 @@ if (process.env.NODE_ENV === 'development') {
 app.use('/api/v1/teams', teams);
 
 const PORT = process.env.PORT || 3000;
+
+app.use(errorHandler);
 
 app.listen(
   PORT,
