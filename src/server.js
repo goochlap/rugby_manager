@@ -24,9 +24,11 @@ if (process.env.NODE_ENV === 'development') {
 // Mount routers
 app.use('/api/v1/teams', teams);
 
+app.use(errorHandler);
+
 const PORT = process.env.PORT || 3000;
 
-app.use(errorHandler);
+app.get('/api/v1/check', (req, res) => res.status(200).send('API is running...'));
 
 app.listen(
   PORT,
