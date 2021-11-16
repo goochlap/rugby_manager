@@ -1,0 +1,17 @@
+[
+  {
+    "name": "UBB",
+    "description": "The Union Bordeaux Bègles or UBB is a French rugby union club, born from the merger in 2006 of the Stade Bordelais university club and the Bègles athletic club and based in Bègles in the southern suburbs of Bordeaux in the Gironde.",
+    "address": "5 Pl. Johnston, 33000 Bordeaux"
+  },
+  {
+    "name": "Rugby club toulonnais",
+    "description": "Le Rugby club toulonnais est un club de rugby à XV français fondé 3 juin 1908 et basé à Toulon et actuellement présidé par Bernard Lemaître. L'équipe première, entraînée par Franck Azéma, évolue en Top 14 depuis 2008 et dispute selon les années la coupe d'Europe ou le challenge européen.",
+    "address": "Quai Joseph Lafontan, 83000 Toulon"
+  },
+  {
+    "name": "Racing 92",
+    "description": "Le Racing 92, anciennement Racing Club de France jusqu'en 2001, puis Racing Métro 92 jusqu'au 10 juin 2015, est un club de rugby à XV français fondé à Paris en 1890 et basé au Plessis-Robinson dans le département des Hauts-de-Seine, dans la banlieue ouest de la capitale.",
+    "address": "8 Rue des Sorins, 92000 Nanterre"
+  }
+]
