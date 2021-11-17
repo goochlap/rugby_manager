@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "babel-node src/server.js",
     "test": "mocha --require @babel/register test/index.test.js --exit",
-    "start": "node index.js",
     "dev": "nodemon --exec babel-node src/server.js"
   },
   "author": "goochlap",
