@@ -29,7 +29,10 @@ describe('Team Flow', () => {
     }
   });
 
-  describe('it should GET all teams', () => {
+  // Init datas to reuse in tests
+  let id;
+
+  describe('GET /teams', () => {
     it('it should return 200 status code & several teams', async () => {
       const response = await request(api)
         .get('/teams')
@@ -37,6 +40,8 @@ describe('Team Flow', () => {
         .expect('Content-Type', /json/);
 
       const teams = response.body.data;
+
+      id = response.body.data[0]._id;
 
       expect(teams).length.to.be.greaterThan(0);
     });
@@ -56,6 +61,23 @@ describe('Team Flow', () => {
         expect(team.description).to.be.a('string');
         expect(team.address).to.be.a('string');
       });
+    });
+  });
+
+  describe('GET /teams/:id', () => {
+    it('it should return a single team', async () => {
+      const response = await request(api)
+        .get(`/teams/${id}`)
+        .expect(200)
+        .expect('Content-Type', /json/);
+
+      const team = response.body.data;
+
+      expect(team).length.to.be.an('object');
+      expect(team._id).to.equal(id);
+      expect(team.name).to.be.a('string');
+      expect(team.description).to.be.a('string');
+      expect(team.address).to.be.a('string');
     });
   });
 });
