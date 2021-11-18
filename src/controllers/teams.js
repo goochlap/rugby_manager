@@ -17,7 +17,7 @@ export const getTeams = async (req, res, next) => {
 // @desc      Get a single team
 // @route     GET /api/v1/teams/:id
 // @access    Public
-export async function getTeam(req, res, next) {
+export const getTeam = async (req, res, next) => {
   try {
     const team = await Team.findById(req.params.id);
 
@@ -31,12 +31,12 @@ export async function getTeam(req, res, next) {
   } catch (err) {
     next(err);
   }
-}
+};
 
 // @desc      Create new team
 // @route     POST /api/v1/teams
 // @access    Private
-export async function createTeam(req, res, next) {
+export const createTeam = async (req, res, next) => {
   try {
     const team = await Team.create(req.body);
 
@@ -44,12 +44,12 @@ export async function createTeam(req, res, next) {
   } catch (err) {
     next(err);
   }
-}
+};
 
 // @desc      Update a team
 // @route     PUT /api/v1/teams/:id
 // @access    Private
-export async function updateTeam(req, res, next) {
+export const updateTeam = async (req, res, next) => {
   try {
     const team = await Team.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
@@ -66,12 +66,12 @@ export async function updateTeam(req, res, next) {
   } catch (err) {
     next(err);
   }
-}
+};
 
 // @desc      Delete a team
 // @route     DELETE /api/v1/teams/:id
 // @access    Private
-export async function deleteTeam(req, res, next) {
+export const deleteTeam = async (req, res, next) => {
   try {
     const team = await Team.findByIdAndDelete(req.params.id);
 
@@ -81,8 +81,8 @@ export async function deleteTeam(req, res, next) {
       );
     }
 
-    res.status(204);
+    res.status(204).send();
   } catch (err) {
     next(err);
   }
-}
+};
