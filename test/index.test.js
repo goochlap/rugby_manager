@@ -105,12 +105,31 @@ describe('Team Flow', () => {
         .expect('Content-Type', /json/);
 
       const team = getResponse.body.data;
+      expect(team).to.be.an('object');
 
       expect(team).to.be.an('object');
       expect(team._id).to.equal(teamId);
       expect(team.name).to.equal(testTeam.name);
       expect(team.description).to.equal(testTeam.description);
       expect(team.address).to.equal(testTeam.address);
+    });
+  });
+
+  describe('DELETE /teams/:id', () => {
+    it('should delete a team', async () => {
+      const getResponse = await request(api)
+        .get(`/teams/${id}`)
+        .expect(200)
+        .expect('Content-Type', /json/);
+
+      const team = getResponse.body.data;
+      expect(team).to.be.an('object');
+
+      const deleteResponse = await request(api)
+        .delete(`/teams/${team._id}`)
+        .expect(204);
+
+      expect(deleteResponse.body).to.be.empty;
     });
   });
 });
