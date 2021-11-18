@@ -4,7 +4,7 @@ services:
   api:
     image: rugby-manager-api
     build: .
-    env_file: .env
+    env_file: .env # don't set env twice !!!
     environment:
       - MONGODB_DB=rugby-manager-api
       - MONGODB_URI=mongodb://admin:password@localhost:27017/

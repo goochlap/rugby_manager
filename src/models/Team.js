@@ -6,7 +6,7 @@ const TeamSchema = new mongoose.Schema({
     required: [true, 'Please add a name'],
     unique: true,
     trim: true,
-    maxlength: [30, 'Name can not be more than 50 characters']
+    maxlength: [50, 'Name can not be more than 50 characters']
   },
   slug: String,
   description: {

@@ -73,11 +73,44 @@ describe('Team Flow', () => {
 
       const team = response.body.data;
 
-      expect(team).length.to.be.an('object');
+      expect(team).to.be.an('object');
       expect(team._id).to.equal(id);
       expect(team.name).to.be.a('string');
       expect(team.description).to.be.a('string');
       expect(team.address).to.be.a('string');
+    });
+  });
+
+  describe('POST /teams', () => {
+    it('it should create a team', async () => {
+      const testTeam = {
+        name: 'Kenya national rugby union team',
+        description:
+          "The Kenya national rugby union team is also known as the Simbas (simba is Swahili for 'lion'). Kenya competes in the Africa Cup and is ranked thirty-second in the World Rugby Rankings as of July 2019. Kenya is yet to qualify for the Rugby World Cup.",
+        address: 'Ngong Road, Nairobi, Kenya'
+      };
+
+      const postResponse = await request(api)
+        .post('/teams')
+        .send(testTeam)
+        .expect(201)
+        .expect('Content-Type', /json/);
+
+      const teamId = postResponse.body.data._id;
+      expect(teamId).to.be.a('string');
+
+      const getResponse = await request(api)
+        .get(`/teams/${teamId}`)
+        .expect(200)
+        .expect('Content-Type', /json/);
+
+      const team = getResponse.body.data;
+
+      expect(team).to.be.an('object');
+      expect(team._id).to.equal(teamId);
+      expect(team.name).to.equal(testTeam.name);
+      expect(team.description).to.equal(testTeam.description);
+      expect(team.address).to.equal(testTeam.address);
     });
   });
 });
