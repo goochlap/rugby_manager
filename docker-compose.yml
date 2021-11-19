@@ -8,6 +8,8 @@ services:
         links:
             - mongo
         env_file: .env
+        volumes:
+            - ./:/home/app
         
     mongo:
         image: mongo:4.2
