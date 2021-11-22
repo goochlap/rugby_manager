@@ -8,7 +8,7 @@ import { Team } from '../models/Team';
 export const getTeams = asyncHandler(async (req, res, next) => {
   const teams = await Team.find();
 
-  res.status(200).json({ success: true, data: teams });
+  res.status(200).json({ success: true, count: teams.length, data: teams });
 });
 
 // @desc      Get a single team

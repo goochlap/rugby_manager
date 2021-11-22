@@ -1,7 +1,6 @@
 import fs from 'fs';
 import path from 'path';
 import mongoose from 'mongoose';
-import { basename } from 'path';
 
 import { Team } from '../../src/models/Team';
 
