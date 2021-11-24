@@ -6,7 +6,15 @@ import { Team } from '../models/Team';
 // @route     GET /api/v1/teams
 // @access    Public
 export const getTeams = asyncHandler(async (req, res, next) => {
-  const teams = await Team.find();
+  let query;
+
+  let queryStr = JSON.stringify(req.query);
+
+  queryStr = queryStr.replace(/\b(gt|gte|lt|lte|in)\b/g, (match) => `$${match}`);
+
+  query = Team.find(JSON.parse(queryStr));
+
+  const teams = await query;
 
   res.status(200).json({ success: true, count: teams.length, data: teams });
 });
