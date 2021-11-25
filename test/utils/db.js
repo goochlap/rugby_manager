@@ -18,7 +18,7 @@ const connectDB = async () => {
 const initDB = async () => {
   const teams = JSON.parse(
     fs.readFileSync(
-      `/home/gautier/code/goochlap/rugby_manager_api/test/data/teams.json`,
+      `/home/gooch/code/goochlap/rugby_manager_api/test/data/teams.json`,
       'utf-8'
     )
   );

@@ -1,7 +1,6 @@
 import colors from 'colors';
 import { config } from 'dotenv';
 import fs from 'fs';
-import mongoose from 'mongoose';
 
 config();
 
@@ -13,7 +12,7 @@ connectDB();
 
 const teams = JSON.parse(
   fs.readFileSync(
-    `/home/gautier/code/goochlap/rugby_manager_api/test/data/teams.json`,
+    `${__dirname}/data/teams.json`,
     'utf-8'
   )
 );
