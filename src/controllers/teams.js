@@ -8,11 +8,22 @@ import { Team } from '../models/Team';
 export const getTeams = asyncHandler(async (req, res, next) => {
   let query;
 
-  let queryStr = JSON.stringify(req.query);
+  const reqQuery = { ...req.query };
+
+  const removeFields = ['select'];
+
+  removeFields.forEach((param) => delete reqQuery[param])
+
+  let queryStr = JSON.stringify(reqQuery);
 
   queryStr = queryStr.replace(/\b(gt|gte|lt|lte|in)\b/g, (match) => `$${match}`);
 
   query = Team.find(JSON.parse(queryStr));
+
+  if (req.query.select) {
+    const fields = req.query.select.split(',').join(' ');
+    query = query.select(fields);
+  }
 
   const teams = await query;
 
