@@ -7,6 +7,7 @@ import errorHandler from './middleware/error';
 
 // Route files
 import teams from './routes/teams';
+import players from './routes/players';
 
 config();
 
@@ -23,6 +24,7 @@ if (process.env.NODE_ENV === 'development') {
 
 // Mount routers
 app.use('/api/v1/teams', teams);
+app.use('/api/v1/players', players);
 
 app.use(errorHandler);
 
