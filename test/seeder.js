@@ -7,19 +7,19 @@ config();
 import { connectDB } from './utils/db';
 
 import { Team } from '../src/models/Team';
+import { Player } from '../src/models/Player';
 
 connectDB();
 
-const teams = JSON.parse(
-  fs.readFileSync(
-    `${__dirname}/data/teams.json`,
-    'utf-8'
-  )
+const teams = JSON.parse(fs.readFileSync(`${__dirname}/data/teams.json`, 'utf-8'));
+const players = JSON.parse(
+  fs.readFileSync(`${__dirname}/data/players.json`, 'utf-8')
 );
 
 const importData = async () => {
   try {
     await Team.create(teams);
+    await Player.create(players);
 
     console.log('Data imported...'.brightGreen);
   } catch (err) {
@@ -31,6 +31,7 @@ const importData = async () => {
 const deleteData = async () => {
   try {
     await Team.deleteMany();
+    await Player.deleteMany();
 
     console.log('Data destroyed'.brightRed);
   } catch (err) {
