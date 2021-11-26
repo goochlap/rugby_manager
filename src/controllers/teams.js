@@ -108,11 +108,13 @@ export const updateTeam = asyncHandler(async (req, res, next) => {
 // @route     DELETE /api/v1/teams/:id
 // @access    Private
 export const deleteTeam = asyncHandler(async (req, res, next) => {
-  const team = await Team.findByIdAndDelete(req.params.id);
+  const team = await Team.findById(req.params.id);
 
   if (!team) {
     return next(new errorResponse(`Team with id: ${req.params.id} not found`, 404));
   }
+
+  team.remove();
 
   res.status(204).send();
 });

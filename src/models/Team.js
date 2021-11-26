@@ -68,6 +68,11 @@ const TeamSchema = new mongoose.Schema(
   }
 );
 
+TeamSchema.pre('remove', async function (next) {
+  await this.model('Player').deleteMany({ team: this._id });
+  next();
+});
+
 TeamSchema.virtual('players', {
   ref: 'Player',
   localField: '_id',
