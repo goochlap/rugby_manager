@@ -14,7 +14,12 @@ export const getPlayers = asyncHandler(async (req, res, next) => {
   if (teamId) {
     query = Player.find({ team: teamId });
   } else {
-    query = Player.find();
+    query = Player.find()
+      .populate({
+        path: 'team',
+        select: 'name budget'
+      })
+      .lean();
   }
 
   const players = await query;
