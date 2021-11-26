@@ -64,3 +64,38 @@ export const createPlayer = asyncHandler(async (req, res, next) => {
 
   res.status(201).json({ success: true, player });
 });
+
+// @desc      Update player
+// @route     PUT /api/v1/players/:id
+// @access    Private
+export const updatePlayer = asyncHandler(async (req, res, next) => {
+  const player = await Player.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidator: true
+  });
+
+  if (!player) {
+    return next(
+      new errorResponse(`Player with the id ${req.params.id} not found`, 404)
+    );
+  }
+
+  res.status(200).json({ success: true, player });
+});
+
+// @desc      Delete player
+// @route     DELETE /api/v1/players/:id
+// @access    Private
+export const deletePlayer = asyncHandler(async (req, res, next) => {
+  const player = await Player.findById(req.params.id);
+
+  if (!player) {
+    return next(
+      new errorResponse(`Player with the id ${req.params.id} not found`, 404)
+    );
+  }
+
+  player.remove();
+
+  res.status(204).send();
+});
