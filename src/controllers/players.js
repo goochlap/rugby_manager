@@ -26,3 +26,21 @@ export const getPlayers = asyncHandler(async (req, res, next) => {
 
   res.status(200).json({ success: true, count: players.length, players });
 });
+
+// @desc      Get a single player
+// @route     GET /api/v1/players/:id
+// @access    Public
+export const getPlayer = asyncHandler(async (req, res, next) => {
+  const player = await Player.findById(req.params.id).populate({
+    path: 'team',
+    select: 'name'
+  });
+
+  if (!player) {
+    return next(
+      new errorResponse(`Player with id: ${req.params.id} not found`, 404)
+    );
+  }
+
+  res.status(200).json({ success: true, player });
+});
