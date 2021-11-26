@@ -1,6 +1,7 @@
 import errorResponse from '../utils/errorResponse';
 import asyncHandler from '../middleware/async';
 import { Player } from '../models/Player';
+import { Team } from '../models/Team';
 
 // @desc      Get players
 // @route     GET /api/v1/players
@@ -43,4 +44,23 @@ export const getPlayer = asyncHandler(async (req, res, next) => {
   }
 
   res.status(200).json({ success: true, player });
+});
+
+// @desc      Create new player
+// @route     Post /api/v1/teams/:teamId/players
+// @access    Private
+export const createPlayer = asyncHandler(async (req, res, next) => {
+  req.body.team = req.params.teamId;
+
+  const team = await Team.findById(req.params.teamId);
+
+  if (!team) {
+    return next(
+      new errorResponse(`Team with the id ${req.params.teamId} doesn't exist`, 404)
+    );
+  }
+
+  const player = await Player.create(req.body);
+
+  res.status(201).json({ success: true, player });
 });
