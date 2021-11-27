@@ -33,7 +33,7 @@ const deleteData = async () => {
     await Team.deleteMany();
     await Player.deleteMany();
 
-    console.log('Data destroyed'.brightRed);
+    console.log('Data destroyed...'.brightRed);
   } catch (err) {
     throw err;
   }

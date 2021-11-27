@@ -55,6 +55,37 @@ const PlayerSchema = new mongoose.Schema({
   }
 });
 
+PlayerSchema.statics.getAveragSalary = async function (teamId) {
+  console.log(teamId);
+  const avgObj = await this.aggregate([
+    {
+      $match: { team: teamId }
+    },
+    {
+      $group: {
+        _id: '$team',
+        averageSalary: { $avg: '$salary' }
+      }
+    }
+  ]);
+
+  try {
+    await this.model('Team').findByIdAndUpdate(teamId, {
+      averageSalary: Math.round(avgObj[0].averageSalary)
+    });
+  } catch (err) {
+    throw err;
+  }
+};
+
+PlayerSchema.post('save', function () {
+  this.constructor.getAveragSalary(this.team);
+});
+
+PlayerSchema.pre('remove', function () {
+  this.constructor.getAveragSalary(this.team);
+});
+
 const Player = mongoose.model('Player', PlayerSchema);
 
 export { Player };
