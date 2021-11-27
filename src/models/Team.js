@@ -58,6 +58,7 @@ const TeamSchema = new mongoose.Schema(
       type: Number
     },
     averageSalary: Number,
+    salaryCap: Number,
     createdAt: {
       type: Date,
       default: Date.now

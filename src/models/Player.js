@@ -55,8 +55,8 @@ const PlayerSchema = new mongoose.Schema({
   }
 });
 
-PlayerSchema.statics.getAveragSalary = async function (teamId) {
-  console.log(teamId);
+// Static method to get teams payroll infos : avg salaray, cap...
+PlayerSchema.statics.getPayrollInfos = async function (teamId) {
   const avgObj = await this.aggregate([
     {
       $match: { team: teamId }
@@ -64,14 +64,16 @@ PlayerSchema.statics.getAveragSalary = async function (teamId) {
     {
       $group: {
         _id: '$team',
-        averageSalary: { $avg: '$salary' }
+        averageSalary: { $avg: '$salary' },
+        salaryCap: { $sum: '$salary' }
       }
     }
   ]);
 
   try {
     await this.model('Team').findByIdAndUpdate(teamId, {
-      averageSalary: Math.round(avgObj[0].averageSalary)
+      averageSalary: Math.round(avgObj[0].averageSalary),
+      salaryCap: avgObj[0].salaryCap
     });
   } catch (err) {
     throw err;
@@ -79,11 +81,11 @@ PlayerSchema.statics.getAveragSalary = async function (teamId) {
 };
 
 PlayerSchema.post('save', function () {
-  this.constructor.getAveragSalary(this.team);
+  this.constructor.getPayrollInfos(this.team);
 });
 
-PlayerSchema.pre('remove', function () {
-  this.constructor.getAveragSalary(this.team);
+PlayerSchema.post('remove', function () {
+  this.constructor.getPayrollInfos(this.team);
 });
 
 const Player = mongoose.model('Player', PlayerSchema);
