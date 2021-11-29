@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "babel-node src/server.js",
-    "test": "NODE_ENV=test mocha --require @babel/register test/index.test.js --exit",
+    "test": "NODE_ENV=test mocha --require @babel/register test/**/*.test.js --exit",
     "dev": "nodemon --exec babel-node src/server.js",
     "seeder": "babel-node ./test/seeder"
   },
