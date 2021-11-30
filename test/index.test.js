@@ -3,9 +3,18 @@ import request from 'supertest';
 import { expect } from 'chai';
 import { config } from 'dotenv';
 import api from './utils/api';
-import app from '../src/server';
 
-config();
+import { connectDB, initDB, resetDB } from './utils/db';
+
+before(async () => {
+  try {
+    await connectDB();
+    await resetDB();
+    await initDB();
+  } catch (err) {
+    throw new Error(err);
+  }
+});
 
 describe('GET /api/v1/check', () => {
   it('it should return 200 status code', async () => {

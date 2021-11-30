@@ -5,19 +5,7 @@ import { config } from 'dotenv';
 import api from '../utils/api';
 import app from '../../src/server';
 
-import { connectDB, initDB, resetDB } from '../utils/db';
-
 describe('Team Flow', () => {
-  before(async () => {
-    try {
-      await connectDB();
-      await resetDB();
-      await initDB();
-    } catch (err) {
-      throw new Error(err);
-    }
-  });
-
   // Init datas to reuse in tests
   let id;
 
