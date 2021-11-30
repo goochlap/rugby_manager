@@ -1,7 +1,6 @@
 import colors from 'colors';
 import request from 'supertest';
 import { expect } from 'chai';
-import { config } from 'dotenv';
 import api from '../utils/api';
 import app from '../../src/server';
 
@@ -18,7 +17,7 @@ describe('Team Flow', () => {
 
       const teams = response.body.data;
 
-      id = response.body.data[0]._id;
+      id = teams[0]._id;
 
       expect(teams).length.to.be.greaterThan(0);
     });
