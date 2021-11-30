@@ -36,6 +36,10 @@ describe('Team Flow', () => {
         expect(team.name).to.be.a('string');
         expect(team.description).to.be.a('string');
         expect(team.address).to.be.a('string');
+        expect(team.website).to.be.a('string');
+        expect(team.phone).to.be.a('string');
+        expect(team.email).to.be.a('string');
+        expect(team.budget).to.be.a('number');
       });
     });
   });
@@ -54,6 +58,10 @@ describe('Team Flow', () => {
       expect(team.name).to.be.a('string');
       expect(team.description).to.be.a('string');
       expect(team.address).to.be.a('string');
+      expect(team.website).to.be.a('string');
+      expect(team.phone).to.be.a('string');
+      expect(team.email).to.be.a('string');
+      expect(team.budget).to.be.a('number');
     });
   });
 
@@ -63,7 +71,11 @@ describe('Team Flow', () => {
         name: 'Kenya national rugby union team',
         description:
           "The Kenya national rugby union team is also known as the Simbas (simba is Swahili for 'lion'). Kenya competes in the Africa Cup and is ranked thirty-second in the World Rugby Rankings as of July 2019. Kenya is yet to qualify for the Rugby World Cup.",
-        address: 'Ngong Road, Nairobi, Kenya'
+        address: 'Ngong Road, Nairobi, Kenya',
+        website: 'https://www.kenyarut.com',
+        phone: '555 452 456',
+        email: 'supporterservices@kenyarut.net',
+        budget: 3000000
       };
 
       const postResponse = await request(api)
@@ -88,6 +100,10 @@ describe('Team Flow', () => {
       expect(team.name).to.equal(testTeam.name);
       expect(team.description).to.equal(testTeam.description);
       expect(team.address).to.equal(testTeam.address);
+      expect(team.website).to.equal(testTeam.website);
+      expect(team.phone).to.equal(testTeam.phone);
+      expect(team.email).to.equal(testTeam.email);
+      expect(team.budget).to.equal(testTeam.budget);
     });
   });
 
