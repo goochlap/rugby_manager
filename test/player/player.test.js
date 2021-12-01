@@ -47,4 +47,29 @@ describe('Player Flow', () => {
       });
     });
   });
+
+  describe('GET /players/:id', () => {
+    it('it should return a single player', async () => {
+      const response = await request(api)
+        .get(`/players/${id}`)
+        .expect(200)
+        .expect('Content-Type', /json/);
+
+      const player = response.body.player;
+
+      expect(player).to.be.an('object');
+      expect(player._id).to.equal(id);
+      expect(player.firstName).to.be.a('string');
+      expect(player.lastName).to.be.a('string');
+      expect(player.nickName).to.be.a('string');
+      expect(player.position).to.be.a('string');
+      expect(player.salary).to.be.a('number');
+      expect(player.height).to.be.a('number');
+      expect(player.weight).to.be.a('number');
+      expect(player.birthday).to.be.a('string');
+      expect(player.birthplace).to.be.a('string');
+      expect(player.biography).to.be.a('string');
+      expect(player.team._id).to.be.a('string');
+    });
+  });
 });
