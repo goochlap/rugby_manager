@@ -72,4 +72,53 @@ describe('Player Flow', () => {
       expect(player.team._id).to.be.a('string');
     });
   });
+
+  describe('POST /players', () => {
+    it('it should create a player', async () => {
+      const testPlayer = {
+        firstName: 'Rémi',
+        lastName: 'Lamerat',
+        nickName: 'winemaker',
+        position: 'outside centre',
+        salary: 320000,
+        height: 184,
+        weight: 105,
+        birthday: '1990-01-14',
+        birthplace: 'Sainte-Foy-la-Grande',
+        biography:
+          "Rémi Lamerat, né le 14 janvier 1990, est un joueur international français de rugby à XV évoluant au poste de centre. Formé au Stade toulousain, il ne s'impose pas et quitte le club pour rejoindre le Castres olympique afin d'avoir plus de temps de jeu tout en restant au sein de l'élite du rugby hexagonal."
+      };
+
+      const postResponse = await request(api)
+        .post('/teams/5d713995b721c3bb38c1f002/players')
+        .send(testPlayer)
+        .expect(201)
+        .expect('Content-Type', /json/);
+
+      const playerId = postResponse.body.player._id;
+      expect(playerId).to.be.a('string');
+
+      const getResponse = await request(api)
+        .get(`/players/${playerId}`)
+        .expect(200)
+        .expect('Content-Type', /json/);
+
+      const player = getResponse.body.player;
+
+      expect(player).to.be.an('object');
+
+      expect(player).to.be.an('object');
+      expect(player._id).to.equal(playerId);
+      expect(player.firstName).to.equal(testPlayer.firstName);
+      expect(player.lastName).to.equal(testPlayer.lastName);
+      expect(player.nickName).to.equal(testPlayer.nickName);
+      expect(player.position).to.equal(testPlayer.position);
+      expect(player.salary).to.equal(testPlayer.salary);
+      expect(player.height).to.equal(testPlayer.height);
+      expect(player.weight).to.equal(testPlayer.weight);
+      expect(player.birthday).to.equal(testPlayer.birthday);
+      expect(player.birthplace).to.equal(testPlayer.birthplace);
+      expect(player.team._id).to.be.equal('5d713995b721c3bb38c1f002');
+    });
+  });
 });
