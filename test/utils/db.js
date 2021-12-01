@@ -1,4 +1,4 @@
-import fs from 'fs';
+import { readFileSync } from 'fs';
 import path from 'path';
 import mongoose from 'mongoose';
 
@@ -18,16 +18,10 @@ const connectDB = async () => {
 
 const initDB = async () => {
   const teams = JSON.parse(
-    fs.readFileSync(
-      `/home/gooch/code/goochlap/rugby_manager_api/test/data/teams.json`,
-      'utf-8'
-    )
+    readFileSync(path.join(__dirname, '../data/teams.json'), 'utf-8')
   );
   const players = JSON.parse(
-    fs.readFileSync(
-      `/home/gooch/code/goochlap/rugby_manager_api/test/data/players.json`,
-      'utf-8'
-    )
+    readFileSync(path.join(__dirname, '../data/players.json'), 'utf-8')
   );
 
   try {

@@ -1,7 +1,6 @@
 import colors from 'colors';
 import request from 'supertest';
 import { expect } from 'chai';
-import { config } from 'dotenv';
 import api from './utils/api';
 
 import { connectDB, initDB, resetDB } from './utils/db';
