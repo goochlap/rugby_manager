@@ -33,7 +33,7 @@ const PlayerSchema = new mongoose.Schema({
     type: Number,
     trim: true
   },
-  birthday: { type: Date },
+  birthday: { type: String },
   birthplace: {
     type: String
   },
