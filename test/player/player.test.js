@@ -166,4 +166,22 @@ describe('Player Flow', () => {
       expect(player.birthplace).to.equal(testPlayer.birthplace);
     });
   });
+
+  describe('DELETE /players/:id', () => {
+    it('should delete a player', async () => {
+      const getResponse = await request(api)
+        .get(`/players/${id}`)
+        .expect(200)
+        .expect('Content-Type', /json/);
+
+      const player = getResponse.body.player;
+      expect(player).to.be.an('object');
+
+      const deleteResponse = await request(api)
+        .delete(`/players/${player._id}`)
+        .expect(204);
+
+      expect(deleteResponse.body).to.be.empty;
+    });
+  });
 });
