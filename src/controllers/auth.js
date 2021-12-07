@@ -17,7 +17,7 @@ export const register = asyncHandler(async (req, res, next) => {
 
   const token = user.signWithToken();
 
-  res.status(201).json({ success: true, token });
+  sendTokenResponse(user, 201, res);
 });
 
 // @desc      Login User
@@ -37,5 +37,19 @@ export const login = asyncHandler(async (req, res, next) => {
 
   const token = user.signWithToken();
 
-  res.status(200).json({ success: true, token });
+  sendTokenResponse(user, 200, res);
 });
+
+const sendTokenResponse = (user, statusCode, res) => {
+  const token = user.signWithToken();
+
+  const options = {
+    maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
+    httpOnly: true
+  };
+
+  res
+    .status(statusCode)
+    .cookie('token', token, options)
+    .json({ succes: true, token });
+};
