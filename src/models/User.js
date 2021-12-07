@@ -46,6 +46,10 @@ UserSchema.methods.signWithToken = function () {
   });
 };
 
+UserSchema.methods.matchPassword = async function (inputPassword) {
+  return await bcrypt.compare(inputPassword, this.password);
+};
+
 const User = mongoose.model('User', UserSchema);
 
 export { User };
