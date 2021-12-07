@@ -7,7 +7,7 @@ import { User } from '../models/User';
 // @access    Public
 export const register = asyncHandler(async (req, res, next) => {
   const { name, email, password, role } = req.body;
-  console.log(name);
+
   const user = await User.create({
     name,
     email,
@@ -15,5 +15,7 @@ export const register = asyncHandler(async (req, res, next) => {
     role
   });
 
-  res.status(201).json({ success: true, user });
+  const token = user.signWithToken();
+
+  res.status(201).json({ success: true, token });
 });
