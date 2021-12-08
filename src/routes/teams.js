@@ -10,7 +10,7 @@ import {
 import { Team } from '../models/Team';
 import advancedResults from '../middleware/advancedResults';
 
-import { protect } from '../middleware/auth';
+import { protect, authorize } from '../middleware/auth';
 
 // Include other resource routers
 import playerRouter from './players';
@@ -23,12 +23,12 @@ router.use('/:teamId/players', playerRouter);
 router
   .route('/')
   .get(advancedResults(Team, 'players'), getTeams)
-  .post(protect, createTeam);
+  .post(protect, authorize('admin', 'manager'), createTeam);
 
 router
   .route('/:id')
   .get(getTeam)
-  .put(protect, updateTeam)
-  .delete(protect, deleteTeam);
+  .put(protect, authorize('admin', 'manager'), updateTeam)
+  .delete(protect, authorize('admin', 'manager'), deleteTeam);
 
 export default router;
