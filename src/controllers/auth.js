@@ -15,8 +15,6 @@ export const register = asyncHandler(async (req, res, next) => {
     role
   });
 
-  const token = user.signWithToken();
-
   sendTokenResponse(user, 201, res);
 });
 
@@ -34,8 +32,6 @@ export const login = asyncHandler(async (req, res, next) => {
 
   const isMatch = await user.matchPassword(password);
   if (!isMatch) return next(new ErrorResponse('Invalid credentials', 401));
-
-  const token = user.signWithToken();
 
   sendTokenResponse(user, 200, res);
 });

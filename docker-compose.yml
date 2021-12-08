@@ -2,12 +2,13 @@ version: '3.8'
 services:
     api:
         build: .
-        container_name: rm-api
+        image: rugby_manager_api
+        container_name: rm-ctr
         ports:
             - "3000:3000"
         links:
             - mongo
-        env_file: .env
+        # env_file: .env
         volumes:
             - ./:/home/app
         
