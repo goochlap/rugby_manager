@@ -10,6 +10,8 @@ import {
 import { Team } from '../models/Team';
 import advancedResults from '../middleware/advancedResults';
 
+import { protect } from '../middleware/auth';
+
 // Include other resource routers
 import playerRouter from './players';
 
@@ -18,8 +20,15 @@ const router = Router();
 // Re-route into other resource router
 router.use('/:teamId/players', playerRouter);
 
-router.route('/').get(advancedResults(Team, 'players'), getTeams).post(createTeam);
+router
+  .route('/')
+  .get(advancedResults(Team, 'players'), getTeams)
+  .post(protect, createTeam);
 
-router.route('/:id').get(getTeam).put(updateTeam).delete(deleteTeam);
+router
+  .route('/:id')
+  .get(getTeam)
+  .put(protect, updateTeam)
+  .delete(protect, deleteTeam);
 
 export default router;
