@@ -8,6 +8,7 @@ import { connectDB } from './utils/db';
 
 import { Team } from '../src/models/Team';
 import { Player } from '../src/models/Player';
+import { User } from '../src/models/User';
 
 connectDB();
 
@@ -32,6 +33,7 @@ const deleteData = async () => {
   try {
     await Team.deleteMany();
     await Player.deleteMany();
+    await User.deleteMany();
 
     console.log('Data destroyed...'.brightRed);
   } catch (err) {

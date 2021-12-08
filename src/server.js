@@ -2,12 +2,14 @@ import express, { json } from 'express';
 import { config } from 'dotenv';
 import morgan from 'morgan';
 import colors from 'colors';
+import cookieParser from 'cookie-parser';
 import connectDB from './utils/db';
 import errorHandler from './middleware/error';
 
 // Route files
 import teams from './routes/teams';
 import players from './routes/players';
+import auth from './routes/auth';
 
 config();
 
@@ -17,6 +19,7 @@ connectDB();
 const app = express();
 
 app.use(json());
+app.use(cookieParser());
 
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
@@ -25,6 +28,7 @@ if (process.env.NODE_ENV === 'development') {
 // Mount routers
 app.use('/api/v1/teams', teams);
 app.use('/api/v1/players', players);
+app.use('/api/v1/auth', auth);
 
 app.use(errorHandler);
 
