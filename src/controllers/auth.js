@@ -40,6 +40,15 @@ export const login = asyncHandler(async (req, res, next) => {
   sendTokenResponse(user, 200, res);
 });
 
+// @desc      Get current logged in user
+// @route     GET /api/v1/auth/me
+// @access    Private
+export const currentUser = asyncHandler(async (req, res, next) => {
+  const user = await User.findById(req.user.id);
+
+  res.status(200).json({ sucess: true, user });
+});
+
 const sendTokenResponse = (user, statusCode, res) => {
   const token = user.signWithToken();
 
