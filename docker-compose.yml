@@ -8,13 +8,12 @@ services:
             - "3000:3000"
         links:
             - mongo
-        # env_file: .env
         volumes:
             - ./:/home/app
         
     mongo:
         image: mongo:4.2
-        container_name: mongodb
+        container_name: mongodb-rm
         ports:
             - "27017:27017"
         volumes:

@@ -11,10 +11,7 @@ const advancedResults = (model, populate) => async (req, res, next) => {
 
   queryStr = queryStr.replace(/\b(gt|gte|lt|lte|in)\b/g, (match) => `$${match}`);
 
-  query = model.find(JSON.parse(queryStr)).populate({
-    path: 'players',
-    select: 'firstName lastName'
-  });
+  query = model.find(JSON.parse(queryStr));
 
   if (req.query.select) {
     const fields = req.query.select.split(',').join(' ');

@@ -8,24 +8,21 @@ import { Team } from '../models/Team';
 // @route     GET /api/v1/teams/:teamId/players
 // @access    Public
 export const getPlayers = asyncHandler(async (req, res, next) => {
-  let query;
-
   const teamId = req.params.teamId;
 
   if (teamId) {
-    query = Player.find({ team: teamId });
+    const players = await Player.find({ team: teamId });
+    const team = await Team.findById(teamId);
+
+    res.status(200).json({
+      sucess: true,
+      team: team.name,
+      count: players.length,
+      players
+    });
   } else {
-    query = Player.find()
-      .populate({
-        path: 'team',
-        select: 'name budget'
-      })
-      .lean();
+    res.status(200).json(res.advancedResults);
   }
-
-  const players = await query;
-
-  res.status(200).json({ success: true, count: players.length, players });
 });
 
 // @desc      Get a single player

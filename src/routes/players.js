@@ -9,9 +9,21 @@ import {
 
 import { protect } from '../middleware/auth';
 
+import { Player } from '../models/Player';
+import advancedResults from '../middleware/advancedResults';
+
 const router = Router({ mergeParams: true });
 
-router.route('/').get(getPlayers).post(protect, createPlayer);
+router
+  .route('/')
+  .get(
+    advancedResults(Player, {
+      path: 'team',
+      select: 'name'
+    }),
+    getPlayers
+  )
+  .post(protect, createPlayer);
 
 router
   .route('/:id')
