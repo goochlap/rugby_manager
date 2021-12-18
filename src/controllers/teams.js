@@ -26,6 +26,20 @@ export const getTeam = asyncHandler(async (req, res, next) => {
 // @route     POST /api/v1/teams
 // @access    Private
 export const createTeam = asyncHandler(async (req, res, next) => {
+  req.body.user = req.user.id;
+
+  const publishedTeam = await Team.findOne({ user: req.user.id });
+
+  // A user can only have one team
+  if (publishedTeam && req.user.role !== 'admin') {
+    return next(
+      new errorResponse(
+        `The user with the ID ${req.user.id} has already published a team`,
+        400
+      )
+    );
+  }
+
   const team = await Team.create(req.body);
 
   res.status(201).json({ success: true, data: team });
