@@ -3,6 +3,7 @@ import { config } from 'dotenv';
 import morgan from 'morgan';
 import colors from 'colors';
 import cookieParser from 'cookie-parser';
+import cors from 'cors';
 import connectDB from './utils/db';
 import errorHandler from './middleware/error';
 
@@ -20,6 +21,7 @@ const app = express();
 
 app.use(json());
 app.use(cookieParser());
+app.use(cors());
 
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
