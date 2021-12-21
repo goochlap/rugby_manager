@@ -49,14 +49,25 @@ export const createTeam = asyncHandler(async (req, res, next) => {
 // @route     PUT /api/v1/teams/:id
 // @access    Private
 export const updateTeam = asyncHandler(async (req, res, next) => {
-  const team = await Team.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-    runValidators: true
-  });
+  let team = await Team.findById(req.params.id);
 
   if (!team) {
     return next(new errorResponse(`Team with id: ${req.params.id} not found`, 404));
   }
+
+  if (req.user.id !== team.user.toString() && req.user.role !== 'admin') {
+    return next(
+      new errorResponse(
+        `User ${req.user.id} is not authorized to update this team`,
+        401
+      )
+    );
+  }
+
+  team = await Team.findOneAndUpdate(team.id, req.body, {
+    new: true,
+    runValidators: true
+  });
 
   res.status(200).json({ success: true, data: team });
 });
