@@ -1,14 +1,16 @@
 <template>
   <div class="container">
-    <h1>RUGBY MANAGER</h1>
+    <Header title="RUGBY MANAGER"/>
   </div>
 </template>
 
 <script>
+import Header from './components/Header.vue'
 
 export default {
   name: 'App',
   components: {
+    Header,
   }
 }
 </script>

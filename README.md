@@ -1,6 +1,6 @@
 # RUGBY MANAGER APP
 
-> APP use to manage **Rugby Teams / Players / User** (CRUD)
+> APP use to manage **Rugby Teams / Players / Users** (CRUD)
 
 ## Stack
 
