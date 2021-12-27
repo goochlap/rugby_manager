@@ -1,15 +1,19 @@
 <template>
   <div v-for="team in teams" :key="team.id" >
-    <h2>{{ team.name }}</h2>
-    <p>{{ team.description.slice(0, 100) }}...</p>
+    <Team :team="team" />
   </div>
 </template>
 
 <script>
+import Team from './Team.vue'
+
 export default {
   name: 'Teams',
   props: {
     teams: Array
+  },
+  components: {
+    Team
   }
 }
 </script>
