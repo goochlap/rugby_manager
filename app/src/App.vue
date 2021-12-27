@@ -1,16 +1,31 @@
 <template>
   <div class="container">
     <Header title="RUGBY MANAGER"/>
+    <Teams :teams="teams" />
   </div>
 </template>
 
 <script>
 import Header from './components/Header.vue'
+import Teams from './components/Teams.vue'
 
 export default {
   name: 'App',
   components: {
     Header,
+    Teams
+  },
+  data() {
+    return {
+      teams: []
+    }
+  },
+  async created() {
+    const res = await fetch(`http://localhost:3000/api/v1/teams/`)
+    const teams = await res.json()
+
+    this.teams = teams.data
+    return teams
   }
 }
 </script>
