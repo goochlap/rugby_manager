@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <Header @toggle-add-team="toggleAddTeam" title="RUGBY MANAGER"/>
+    <Header @toggle-add-team="toggleAddTeam" title="RUGBY MANAGER" :showAddTeam="showAddTeam" />
     <div v-show="showAddTeam">
       <AddTeam />
     </div>
