@@ -1,6 +1,8 @@
 <template>
-  <div v-for="team in teams" :key="team.id" >
-    <Team :team="team" />
+  <div>
+    <div v-for="team in teams" :key="team.id" >
+      <Team :team="team" />
+    </div>
   </div>
 </template>
 

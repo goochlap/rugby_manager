@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <Header title="RUGBY MANAGER"/>
+    <AddTeam />
     <Teams :teams="teams" />
   </div>
 </template>
@@ -8,12 +9,14 @@
 <script>
 import Header from './components/Header.vue'
 import Teams from './components/Teams.vue'
+import AddTeam from './components/AddTeam.vue'
 
 export default {
   name: 'App',
   components: {
     Header,
-    Teams
+    Teams,
+    AddTeam
   },
   data() {
     return {
