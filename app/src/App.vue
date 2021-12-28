@@ -1,7 +1,9 @@
 <template>
   <div class="container">
-    <Header title="RUGBY MANAGER"/>
-    <AddTeam />
+    <Header @toggle-add-team="toggleAddTeam" title="RUGBY MANAGER"/>
+    <div v-show="showAddTeam">
+      <AddTeam />
+    </div>
     <Teams :teams="teams" />
   </div>
 </template>
@@ -20,16 +22,24 @@ export default {
   },
   data() {
     return {
-      teams: []
+      teams: [],
+      showAddTeam: false
+    }
+  },
+  methods: {
+    async fetchTeams() {
+      const res = await fetch(`http://localhost:3000/api/v1/teams/`)
+      const teams = await res.json()
+
+      return teams.data
+    },
+    toggleAddTeam() {
+      this.showAddTeam = !this.showAddTeam
     }
   },
   async created() {
-    const res = await fetch(`http://localhost:3000/api/v1/teams/`)
-    const teams = await res.json()
-
-    this.teams = teams.data
-    return teams
-  }
+    this.teams = await this.fetchTeams()
+  },
 }
 </script>
 

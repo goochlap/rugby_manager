@@ -1,7 +1,7 @@
 <template>
   <header>
     <h1>{{ title }}</h1>
-    <Button text="Show all Teams" color="rgb(88, 170, 236)" />
+    <Button @btn-click="$emit('toggle-add-team')" text="Add a team" color="rgb(88, 170, 236)" />
   </header>
 </template>
 
