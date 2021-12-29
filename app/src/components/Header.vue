@@ -1,7 +1,7 @@
 <template>
   <header>
     <h1>{{ title }}</h1>
-    <Button text="Show all Teams" color="rgb(88, 170, 236)" />
+    <Button @btn-click="$emit('toggle-add-team')" :text="showAddTeam ? 'Close' : 'Add a team'" :color="showAddTeam ? 'red' : 'rgb(88, 170, 236)'" />
   </header>
 </template>
 
@@ -11,7 +11,8 @@ import Button from './Button.vue'
 export default {
   name: 'Header',
   props: {
-    title: String
+    title: String,
+    showAddTeam: Boolean
   },
   components: {
     Button,

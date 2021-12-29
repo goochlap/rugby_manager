@@ -11,7 +11,7 @@ export default {
   },
   methods: {
     onClick() {
-      console.log('Show all teams on click...');
+      this.$emit('btn-click')
     }
   }
 }

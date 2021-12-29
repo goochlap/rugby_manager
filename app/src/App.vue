@@ -1,17 +1,45 @@
 <template>
   <div class="container">
-    <Header title="RUGBY MANAGER"/>
+    <Header @toggle-add-team="toggleAddTeam" title="RUGBY MANAGER" :showAddTeam="showAddTeam" />
+    <div v-show="showAddTeam">
+      <AddTeam />
+    </div>
+    <Teams :teams="teams" />
   </div>
 </template>
 
 <script>
 import Header from './components/Header.vue'
+import Teams from './components/Teams.vue'
+import AddTeam from './components/AddTeam.vue'
 
 export default {
   name: 'App',
   components: {
     Header,
-  }
+    Teams,
+    AddTeam
+  },
+  data() {
+    return {
+      teams: [],
+      showAddTeam: false
+    }
+  },
+  methods: {
+    async fetchTeams() {
+      const res = await fetch(`api/v1/teams/`)
+      const teams = await res.json()
+
+      return teams.data
+    },
+    toggleAddTeam() {
+      this.showAddTeam = !this.showAddTeam
+    }
+  },
+  async created() {
+    this.teams = await this.fetchTeams()
+  },
 }
 </script>
 
