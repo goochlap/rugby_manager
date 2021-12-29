@@ -1,7 +1,7 @@
 <template>
   <header>
     <h1>{{ title }}</h1>
-    <Button @btn-click="$emit('toggle-add-team')" :text="showAddTeam ? 'Close' : 'Add a team'" :color="showAddTeam ? 'red' : 'rgb(88, 170, 236)'" />
+    <Button v-show="teamsView" @btn-click="$emit('toggle-add-team')" :text="showAddTeam ? 'Close' : 'Add a team'" :color="showAddTeam ? 'red' : 'rgb(88, 170, 236)'" />
   </header>
 </template>
 
@@ -16,6 +16,11 @@ export default {
   },
   components: {
     Button,
+  },
+  computed: {
+    teamsView() {
+      return this.$route.path === '/teams' ? true : false
+    }
   }
 }
 </script>
