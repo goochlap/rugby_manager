@@ -37,7 +37,7 @@ export default {
     async createTeam(e) {
       e.preventDefault()
       
-      const res = await fetch(`http://localhost:3000/api/v1/teams/`, {
+      const res = await fetch(`api/v1/teams/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

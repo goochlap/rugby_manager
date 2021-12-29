@@ -28,7 +28,7 @@ export default {
   },
   methods: {
     async fetchTeams() {
-      const res = await fetch(`http://localhost:3000/api/v1/teams/`)
+      const res = await fetch(`api/v1/teams/`)
       const teams = await res.json()
 
       return teams.data
