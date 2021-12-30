@@ -23,6 +23,7 @@
 </template>
 
 <script>
+import { token } from '../middleware/auth'
 
 export default {
   name: 'AddTeam',
@@ -36,12 +37,12 @@ export default {
   methods: {
     async createTeam(e) {
       e.preventDefault()
-      
+
       const res = await fetch(`api/v1/teams/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxYzM0NTM5MmRmZjRhN2RiOThiNjUwNCIsImlhdCI6MTY0MDcxMDkyOCwiZXhwIjoxNjQzMzAyOTI4fQ.iiTyefjHndzT9haajeEs00o0sEFHrrgzf8i0WS9kS00'
+          'Authorization': `Bearer: ${token()}`
         },
         body: JSON.stringify({
           name: this.name,
