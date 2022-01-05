@@ -1,58 +1,70 @@
 <template>
-  <form @submit="createTeam" class="add-form">
+  <form @submit="register" class="add-form">
     <div class="form-control">
-      <label>Team Name</label>
+      <label>name</label>
       <input type="text" v-model="name" name="name" placeholder="Add name" />
     </div>
     <div class="form-control">
-      <label>Description</label>
+      <label>email</label>
       <input
         type="text"
-        v-model="description"
-        name="description"
-        placeholder="Add description"
+        v-model="email"
+        name="email"
+        placeholder="Add email"
       />
     </div>
     <div class="form-control">
-      <label>Address</label>
-      <input type="text" v-model="address" name="address" placeholder="Add a description" />
+      <label>password</label>
+      <input
+        type="text"
+        v-model="password"
+        name="password"
+        placeholder="Add password"
+      />
     </div>
+    <select v-model="role">
+      <option disabled value="">Choose role</option>
+      <option>user</option>
+      <option>manager</option>
+    </select>
 
-    <input type="submit" value="Create Team" class="btn btn-block" />
+    <input type="submit" value="Register User" class="btn btn-block" />
   </form>
 </template>
 
 <script>
-import { token } from '../middleware/auth'
 
 export default {
-  name: 'AddTeam',
+  name: 'Register',
   data() {
     return {
       name: '',
-      description: '',
-      address: ''
+      email: '',
+      password: '',
+      role: ''
     }
   },
   methods: {
-    async createTeam(e) {
+    async register(e) {
       e.preventDefault()
-
-      const res = await fetch(`api/v1/teams/`, {
+      
+      const res = await fetch(`api/v1/auth/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer: ${token()}`
         },
         body: JSON.stringify({
           name: this.name,
-          description: this.description,
-          address: this.address,
+          email: this.email,
+          password: this.password,
+          role: this.role
         })
       })
 
       const data = await res.json()
       if (!data.success) alert(`${data.error}`)
+
+      if (data.token) localStorage.setItem('user', JSON.stringify(data));
 
       return data
     }
